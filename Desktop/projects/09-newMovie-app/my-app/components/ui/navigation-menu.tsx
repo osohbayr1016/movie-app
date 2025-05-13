@@ -69,19 +69,18 @@ function NavigationMenuTrigger({
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
   return (
     <div className="flex">
-        <NavigationMenuPrimitive.Trigger
-      data-slot="navigation-menu-trigger"
-      className={cn(navigationMenuTriggerStyle(), "group", className)}
-      {...props}
-    ><ChevronDownIcon
-    className="relative top-[1px] ml-1 size-[18px] transition duration-300 group-data-[state=open]:rotate-x-180 pr-[5px]"
-    aria-hidden="true"
-  />
-      {children}{" "}
-      
-    </NavigationMenuPrimitive.Trigger>
+      <NavigationMenuPrimitive.Trigger
+        data-slot="navigation-menu-trigger"
+        className={cn(navigationMenuTriggerStyle(), "group", className)}
+        {...props}
+      >
+        <ChevronDownIcon
+          className="relative top-[1px] ml-1 size-[18px] transition duration-300 group-data-[state=open]:rotate-x-180 pr-[5px]"
+          aria-hidden="true"
+        />
+        {children}{" "}
+      </NavigationMenuPrimitive.Trigger>
     </div>
-  
   );
 }
 
