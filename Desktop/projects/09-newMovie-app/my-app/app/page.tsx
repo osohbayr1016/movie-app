@@ -63,6 +63,8 @@ export default function Home() {
 
     fetchAllMovies();
   }, []);
+
+  const [isBlack, setIsBlack] = useState(false);
   return (
     <div>
       <div className="flex justify-around items-center p-[16px]">
@@ -94,167 +96,14 @@ export default function Home() {
                     <div className="border-[1px] flex-row flex"></div>
                     <div className="flex gap-[16px] mt-[10px] h-[20px] pl-[20px] pr-[20px] pb-[20px] -pt  ustify-center flex-wrap">
                       <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
+                        onClick={() => setIsBlack(!isBlack)}
+                        className={`h-[20px] border-1px-solid p-[10px] font-bold cursor-pointer transition-colors duration-100   ${
+                          isBlack
+                            ? "bg-black text-white"
+                            : "bg-white text-black"
+                        }`}
                       >
                         Action <ChevronRight />
-                      </Badge>
-
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Adventure <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Animation <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Biography <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Comedy <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Crime <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Documentary <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Drama <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Family <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Fantasy <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Film-Noir <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Game-show <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        History <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Horror <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Music <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Musical <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Mystery <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        News <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Reality-TV <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Romance <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Romance <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Short <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Sport <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Talk-Show <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Thriller <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        War <ChevronRight />
-                      </Badge>
-                      <Badge
-                        className="h-[20px] hover:bg-[#00000020] cursor-pointer p-[10px] font-bold"
-                        variant="secondary"
-                      >
-                        Western <ChevronRight />
                       </Badge>
                     </div>
                   </NavigationMenuContent>

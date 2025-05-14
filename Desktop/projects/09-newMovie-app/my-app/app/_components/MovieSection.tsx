@@ -1,5 +1,6 @@
 "use client";
  
+import { ChevronRight } from "lucide-react";
 import { Movies } from "./Movies";
  
 interface Movie {
@@ -18,8 +19,8 @@ export const MovieSection = ({ title, movies }: MovieSectionProps) => {
   return (
     <div className="md:px-5 ml-[20px] mr-[20px] md:ml-[80px] md:mr-[80px]">
       <div className="flex justify-between md:mt-[45px] md:mb-[40px]">
-        <p className="text-[24px]">{title}</p>
-        <p className="cursor-pointer text-blue-500 hover:underline">See more</p>
+        <h3 className="text-[24px] font-semibold ">{title}</h3>
+        <button className="cursor-pointer text-blue-500 flex hover:underline">See more <ChevronRight /></button>
       </div>
       <Movies sectionMovies={movies} />
     </div>
