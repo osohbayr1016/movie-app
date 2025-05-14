@@ -45,7 +45,7 @@ export const Hero = () => {
       <CarouselContent>
         {upcoming.map((el, index) => (
           <CarouselItem key={index}>
-            <div className="relative overflow-hidden lg:h-[600px] h-[365px]">
+            <div className="relative overflow-hidden h-[365px] lg:h-[600px] ">
               <Image
                 src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
                 alt={""}

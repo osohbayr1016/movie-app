@@ -1,6 +1,13 @@
+"use client";
+import { Search } from "lucide-react";
+
 export const PhoneInput = () => {
-    return <div>
-      <input type="text" placeholder="Search..." className="outline-none w-full p-[4px]"/>
-    </div>;
-  };
-  
+  return (
+    <div className="w-full h-[36px] justify-end items-end flex sm:hidden">
+      <Search
+        size="icon"
+        className="flex justify-center items-center bg-dark rounded-md p-[8px] w-[36px] h-full border-1 "
+      />
+    </div>
+  );
+};

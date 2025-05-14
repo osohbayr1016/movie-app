@@ -1,6 +1,6 @@
+"use client";
 // Importuud
 import Image from "next/image";
-// import { NewCarousel } from "@/app/_components/newCarousel";
 
 import Autoplay from "embla-carousel-autoplay";
 import { Header } from "@/app/_components/header";
@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/carousel";
 
 import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
 import { DesktopInput } from "./_components/DesktopInput";
 import { Badge } from "@/components/ui/badge";
 import { Search, Moon, Sun, ChevronRight } from "lucide-react";
@@ -36,24 +35,47 @@ import {
 } from "@/components/ui/select";
 
 import { Hero } from "./_components/Hero";
+import { PhoneInput } from "./_components/PhoneInput";
+import { UpcomingMovies } from "./_components/UpcomingMovies";
+import { useEffect, useState } from "react";
+import { GetPopularApi } from "@/hooks/GetPopularApi";
+import { GetTopRatedApi } from "@/hooks/GetTopRatedApi";
+import { GetUpcomingApi } from "@/hooks/GetUpcomingApi";
+import { MovieSection } from "./_components/MovieSection";
 
 export default function Home() {
-  // return <div className="block sm:hidden">
-  //   box
-  // </div>
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchAllMovies = async () => {
+      const [popularRes, upcomingRes, topRatedRes] = await Promise.all([
+        GetPopularApi(),
+        GetUpcomingApi(),
+        GetTopRatedApi(),
+      ]);
+
+      setPopularMovies(popularRes?.results?.slice(0, 10) || []);
+      setUpcomingMovies(upcomingRes?.results?.slice(0, 10) || []);
+      setTopRatedMovies(topRatedRes?.results?.slice(0, 10) || []);
+    };
+
+    fetchAllMovies();
+  }, []);
   return (
     <div>
       <div className="flex justify-around items-center p-[16px]">
-        <div className="flex h-[20px] w-[92px] gap-[8px] cursor-pointer items-center">
+        <div className="flex h-[20px] w-[90px] gap-[8px] cursor-pointer items-center">
           <img src={"/Vector (5).png"} />
-          <p className="weight-[700] font-bold italic text-[16px] text-[#4338CA] ">
+          <p className="weight-[700] font-bold italic text-[16px] text-[#4338CA] w-[90px]">
             Movie Z
           </p>
         </div>
 
         {/* Navigation section */}
-        <div className="flex w-[488px] h-[36px] gap-[12px] md:opacity-1">
-          <div>
+        <div className="w-[488px] h-[36px] gap-[12px] flex">
+          <div className="hidden sm:flex">
             <NavigationMenu className="">
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -241,15 +263,24 @@ export default function Home() {
             </NavigationMenu>
           </div>
 
-          <div className="w-[100%] flex items-center gap-[10px] border-1 rounded-lg pl-[12px] pr-[12px] h-[36px]">
-            {/* <Search className="h-[16px] w-[16px] opacity-[50%]" /> */}
+          <div className="w-[100%] items-center gap-[10px] border-1 rounded-lg pl-[12px] pr-[12px] h-[36px] hidden sm:flex">
+            <Search className="h-[16px] w-[16px] opacity-[50%]" />
             <DesktopInput />
           </div>
+          {/* <div className=" w-full h-[36px] mr-[12px] flex sm:hidden "></div> */}
         </div>
-        <Header />
+        <div className="gap-[12px] flex">
+          <PhoneInput />
+          <Header />
+        </div>
       </div>
       <div className="w-full justify-center flex h-[700px] ">
         <Hero />
+      </div>
+      <div>
+        <MovieSection title="Upcoming" movies={upcomingMovies} />
+        <MovieSection title="Popular" movies={popularMovies} />
+        <MovieSection title="Top Rated" movies={topRatedMovies} />
       </div>
     </div>
   );
