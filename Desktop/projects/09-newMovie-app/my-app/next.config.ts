@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import { hostname } from "os";
 
 const nextConfig: NextConfig = {
-  image: {
+  images: {
     remotePatterns: [
       {
         hostname: "image.tmdb.org",

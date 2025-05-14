@@ -1,6 +1,6 @@
 // Importuud
 import Image from "next/image";
-import { NewCarousel } from "@/app/_components/newCarousel";
+// import { NewCarousel } from "@/app/_components/newCarousel";
 
 import Autoplay from "embla-carousel-autoplay";
 import { Header } from "@/app/_components/header";

@@ -27,19 +27,20 @@ export const Hero = () => {
   useEffect(() => {
     const nowPlaying = async () => {
       const response = await getHeroApi()
-      const firstFive = response?.result.splice(0, 5);
+      const firstFive = response?.results.splice(0, 5);
+      console.log(response?.results.data, "Response ")
       setUpcoming(firstFive);
     };
     nowPlaying();
   }, []);
 
-  console.log(getHeroApi, "aksdfj;aksdjf;aksd");
+  // console.log(getHeroApi, "aksdfj;aksdjf;aksd");
 
   return (
     <Carousel
       opts={{ loop: true }}
       plugins={[Autoplay({ delay: 2000 })]}
-      className="relative mt-[20px] lg:mt-[83px] w-screen overflow-hidden"
+      className="relative mt-[20px] lg:mt-[15px] w-screen overflow-hidden"
     >
       <CarouselContent>
         {upcoming.map((el, index) => (
@@ -47,7 +48,9 @@ export const Hero = () => {
             <div className="relative overflow-hidden lg:h-[600px] h-[365px]">
               <Image
                 src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
-                alt={"image"}
+                alt={""}
+                fill
+                className="object-cover"
               />
             </div>
           </CarouselItem>
