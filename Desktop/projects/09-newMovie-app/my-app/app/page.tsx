@@ -15,7 +15,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { DesktopInput } from "./_components/DesktopInput";
 import { Badge } from "@/components/ui/badge";
-import { Search, Moon, Sun, ChevronRight } from "lucide-react";
+import {
+  Search,
+  Moon,
+  Sun,
+  ChevronRight,
+  Film,
+  Mail,
+  Phone,
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -42,6 +50,18 @@ import { GetPopularApi } from "@/hooks/GetPopularApi";
 import { GetTopRatedApi } from "@/hooks/GetTopRatedApi";
 import { GetUpcomingApi } from "@/hooks/GetUpcomingApi";
 import { MovieSection } from "./_components/MovieSection";
+import { useRouter } from "next/navigation";
+
+const arr = [
+  {
+    name: "sinners",
+    id: "9980",
+  },
+  {
+    name: "Karate Kid",
+    id: "1234",
+  },
+];
 
 export default function Home() {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -64,12 +84,23 @@ export default function Home() {
     fetchAllMovies();
   }, []);
 
+  const router = useRouter();
+  const routerHandler = (path: string) => {
+    router.push(path);
+  };
+
   const [isBlack, setIsBlack] = useState(false);
   return (
+    
     <div>
+      {arr.map(el => {
+        return <div onClick={() => routerHandler(`/details/${el}`)}>
+          {el.name}
+        </div>
+      })}
       <div className="flex justify-around items-center p-[16px]">
         <div className="flex h-[20px] w-[90px] gap-[8px] cursor-pointer items-center">
-          <img src={"/Vector (5).png"} />
+          <Film className="text-[#4338ca] h-[17px] w-[17px]" />
           <p className="weight-[700] font-bold italic text-[16px] text-[#4338CA] w-[90px]">
             Movie Z
           </p>
@@ -123,13 +154,68 @@ export default function Home() {
           <Header />
         </div>
       </div>
-      <div className="w-full justify-center flex h-[700px] ">
+      <div className="w-full justify-center flex ">
         <Hero />
       </div>
       <div>
         <MovieSection title="Upcoming" movies={upcomingMovies} />
         <MovieSection title="Popular" movies={popularMovies} />
         <MovieSection title="Top Rated" movies={topRatedMovies} />
+      </div>
+      {/*   px-[120px] gap-[120px] */}
+      {/* Footer Section */}
+      <div className="bg-[#4338CA] h-[280px] text-[#fafafa] py-[40px] flex  justify-between mt-[100px] w-full flex-col sm:flex-row">
+        <div className="flex-col flex gap-[12px] w-full">
+          <div className="flex gap-[8px] w-full">
+            <Film />
+            Movie Z
+          </div>
+          <div>
+            <p>© 2024 Movie Z. All Rights Reserved.</p>
+          </div>
+        </div>
+        {/* <div className="flex-row gap-[96px] sm:flex-col"> */}
+        <div className="flex flex-col gap-[12px] w-full">
+          <div className="">
+            <div>
+              <p>Contact Information</p>
+            </div>
+            <div className="flex items-center gap-[12px] pb-[24px] pt-[12px] w-full">
+              <div className="">
+                <div>
+                  <Mail />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <p>Email:</p>
+                  <p>Support@MovieZ.com</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-[12px] w-full">
+              <div>
+                <Phone />
+              </div>
+              <div>
+                <p>Phone:</p>
+                <p>+976 (11) 123-4567</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-[12px]">
+          <div>
+            <p>Follow us</p>
+          </div>
+          <div className="gap-[12px] flex w-full flex-col sm:flex-row">
+            <button>Facebook</button>
+            <button>Instagram</button>
+            <button>Twitter</button>
+            <button>Youtube</button>
+          </div>
+        </div>
+        {/* </div> */}
       </div>
     </div>
   );
