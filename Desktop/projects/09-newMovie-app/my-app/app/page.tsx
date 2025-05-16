@@ -52,17 +52,6 @@ import { GetUpcomingApi } from "@/hooks/GetUpcomingApi";
 import { MovieSection } from "./_components/MovieSection";
 import { useRouter } from "next/navigation";
 
-const arr = [
-  {
-    name: "sinners",
-    id: "9980",
-  },
-  {
-    name: "Karate Kid",
-    id: "1234",
-  },
-];
-
 export default function Home() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -91,13 +80,7 @@ export default function Home() {
 
   const [isBlack, setIsBlack] = useState(false);
   return (
-    
     <div>
-      {arr.map(el => {
-        return <div onClick={() => routerHandler(`/details/${el}`)}>
-          {el.name}
-        </div>
-      })}
       <div className="flex justify-around items-center p-[16px]">
         <div className="flex h-[20px] w-[90px] gap-[8px] cursor-pointer items-center">
           <Film className="text-[#4338ca] h-[17px] w-[17px]" />

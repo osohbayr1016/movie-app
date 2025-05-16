@@ -1,17 +1,17 @@
-import { Detail } from "@/app/_components/DetailPage";
-import { GetCreditApi } from "@/hooks/GetCreditApi";
-// import { useRouter } from "next/navigation";
+import { DetailPage } from "@/app/_components/DetailPage";
+
 
 interface PageProps {
   params: {
     id: string;
   };
 }
-const DetailPage = async ({ params }: PageProps) => {
-  const { id } = params;
-
-  const result = await GetCreditApi(id);
-  return <Detail id={id} />;
+const Detail = ({ params }: PageProps) => {
+  const {id} = params
+  return (
+    <div>
+      <DetailPage id={id} />
+    </div>
+  );
 };
-
-export default DetailPage;
+export default Detail;
