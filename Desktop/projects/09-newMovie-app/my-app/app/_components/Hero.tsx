@@ -34,8 +34,6 @@ export const Hero = () => {
     nowPlaying();
   }, []);
 
-  // console.log(getHeroApi, "aksdfj;aksdjf;aksd");
-
   return (
     <Carousel
       opts={{ loop: true }}
@@ -48,7 +46,7 @@ export const Hero = () => {
             <div className="relative overflow-hidden h-[365px] lg:h-[600px] ">
               <Image
                 src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
-                alt={""}
+                alt={"image"}
                 fill
                 className="object-cover"
               />

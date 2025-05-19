@@ -51,11 +51,21 @@ import { GetTopRatedApi } from "@/hooks/GetTopRatedApi";
 import { GetUpcomingApi } from "@/hooks/GetUpcomingApi";
 import { MovieSection } from "./_components/MovieSection";
 import { useRouter } from "next/navigation";
+import { Genres } from "./_components/Genre"; // import the array
 
 export default function Home() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
+
+  // ✅ Hook should be here
+  const [activeGenres, setActiveGenres] = useState<string[]>([]);
+
+  const toggleGenre = (genre: string) => {
+    setActiveGenres((prev) =>
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+    );
+  };
 
   useEffect(() => {
     const fetchAllMovies = async () => {
@@ -108,17 +118,21 @@ export default function Home() {
                       </p>
                     </div>
                     <div className="border-[1px] flex-row flex"></div>
-                    <div className="flex gap-[16px] mt-[10px] h-[20px] pl-[20px] pr-[20px] pb-[20px] -pt  ustify-center flex-wrap">
-                      <Badge
-                        onClick={() => setIsBlack(!isBlack)}
-                        className={`h-[20px] border-1px-solid p-[10px] font-bold cursor-pointer transition-colors duration-100   ${
-                          isBlack
-                            ? "bg-black text-white"
-                            : "bg-white text-black"
-                        }`}
-                      >
-                        Action <ChevronRight />
-                      </Badge>
+                    <div className="flex gap-[16px] mt-[10px] h-auto pl-[20px] pr-[20px] pb-[20px] justify-center flex-wrap">
+                      {Genres.map((el, index) => (
+                        <Badge
+                          key={index}
+                          className={`h-[20px] p-[10px] font-bold cursor-pointer transition-colors duration-100 border-1 border-grey-300  ${
+                            activeGenres.includes(el.name)
+                              ? "bg-black text-white "
+                              : "bg-white text-black "
+                          } `}
+                          onClick={() => toggleGenre(el.name)}
+                        >
+                          {el.name}
+                          <ChevronRight className="inline-block ml-1" />
+                        </Badge>
+                      ))}
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>

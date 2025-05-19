@@ -26,4 +26,3 @@ export const MovieSection = ({ title, movies }: MovieSectionProps) => {
     </div>
   );
 };
- 

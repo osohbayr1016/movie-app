@@ -83,10 +83,13 @@ export const DetailPage = ({ id }: { id: string }) => {
         </div>
       </div>
       <div>
-        {moreLikeThis.map((el)=>{
-          return <div>{el}</div>
+        {moreLikeThis.map((el, index) => {
+          return (
+            <div key={index}>
+              <MovieSection title="More like this" movies={moreLikeThis} />
+            </div>
+          );
         })}
-        <MovieSection title="More like this" movies={moreLikeThis} />
       </div>
       {/* Footer section */}
       <div className="bg-[#4338CA] h-[280px] text-[#fafafa] py-[40px] flex  justify-between mt-[100px] w-full flex-col sm:flex-row">

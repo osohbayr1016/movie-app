@@ -35,7 +35,7 @@ export const Movies = ({ sectionMovies }: MoviesProps) => {
               <div className="relative w-full h-[234px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${el.poster_path}`}
-                  alt={el.title}
+                  alt={"image"}
                   height={340}
                   width={230}
                   className="object-cover"
@@ -44,7 +44,7 @@ export const Movies = ({ sectionMovies }: MoviesProps) => {
             </div>
             <div className="flex bottom-[1px] gap-1 p-2 text-sm h-[155px] items-end">
               <Star className="w-4 h-4 text-yellow-400" />
-              <p>{el.vote_average.toFixed(1)}/10</p>
+              {/* <p>{el.vote_average.toFixed(1)}/10</p> */}
             </div>
             <p className="px-2 font-semibold truncate">{el.title}</p>
           </div>
