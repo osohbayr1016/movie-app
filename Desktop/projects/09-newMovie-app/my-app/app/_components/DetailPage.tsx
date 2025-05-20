@@ -17,6 +17,7 @@ import { Header } from "@/app/_components/header";
 import { Hero } from "@/app/_components/Hero";
 import { useState, useEffect } from "react";
 import { MovieSection } from "@/app/_components/MovieSection";
+import { GenreList, Genres } from "./Genre";
 // import { useRouter } from "next/navigation";
 interface PageProps {
   params: {
@@ -24,16 +25,31 @@ interface PageProps {
   };
 }
 
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+}
+
 export const DetailPage = ({ id }: { id: string }) => {
+  const [activeGenres, setActiveGenres] = useState<string[]>([]);
+
+  const toggleGenre = (genre: string) => {
+    setActiveGenres((prev) =>
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+    );
+  };
+
   const [moreLikeThis, setMoreLikeThis] = useState([]);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
       const response = await GetSimilarApi(id);
-      setMoreLikeThis(response?.results.slice(0, 5) || []);
+      setMoreLikeThis(response?.results.slice(0, 5));
     };
     fetchAllMovies();
-  }, [id]);
+  }, []);
 
   return (
     <div>
@@ -64,6 +80,22 @@ export const DetailPage = ({ id }: { id: string }) => {
                       </p>
                     </div>
                     <div className="border-[1px] flex-row flex"></div>
+                    <div className="flex gap-[16px] mt-[10px] h-auto pl-[20px] pr-[20px] pb-[20px] justify-center flex-wrap">
+                      {Genres.map((el, index) => (
+                        <Badge
+                          key={index}
+                          className={`h-[20px] p-[10px] font-bold cursor-pointer transition-colors duration-100 border-1 border-grey-300  ${
+                            activeGenres.includes(el.name)
+                              ? "bg-black text-white "
+                              : "bg-white text-black "
+                          } `}
+                          onClick={() => toggleGenre(el.name)}
+                        >
+                          {el.name}
+                          <ChevronRight className="inline-block ml-1" />
+                        </Badge>
+                      ))}
+                    </div>
                     <div className="flex gap-[16px] mt-[10px] h-[20px] pl-[20px] pr-[20px] pb-[20px] -pt  ustify-center flex-wrap"></div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -75,21 +107,19 @@ export const DetailPage = ({ id }: { id: string }) => {
             <Search className="h-[16px] w-[16px] opacity-[50%]" />
             <DesktopInput />
           </div>
-          {/* <div className=" w-full h-[36px] mr-[12px] flex sm:hidden "></div> */}
+          <div className=" w-full h-[36px] mr-[12px] flex sm:hidden "></div>
         </div>
         <div className="gap-[12px] flex">
           <PhoneInput />
           <Header />
         </div>
       </div>
+      {/* Header Section */}
       <div>
-        {moreLikeThis.map((el, index) => {
-          return (
-            <div key={index}>
-              <MovieSection title="More like this" movies={moreLikeThis} />
-            </div>
-          );
-        })}
+        
+      </div>
+      <div>
+        <MovieSection title="More like this" movies={moreLikeThis} />
       </div>
       {/* Footer section */}
       <div className="bg-[#4338CA] h-[280px] text-[#fafafa] py-[40px] flex  justify-between mt-[100px] w-full flex-col sm:flex-row">

@@ -1,7 +1,7 @@
 // Genre.tsx
 "use client";
 
-const Genres = [
+export const Genres = [
   { name: "Action" },
   { name: "Adventure" },
   { name: "Animation" },
@@ -37,13 +37,10 @@ export const GenreList = ({ onClick }: { onClick?: (genre: string) => void }) =>
     <div key={index}>
       <div 
         onClick={() => onClick?.(el.name)}
-        className="cursor-pointer" 
+        className="cursor-pointer flex justify-between" 
       >
         {el.name}
       </div>
     </div>
   ));
 };
-
-// Or export the Genres array if you want to map it directly from the page:
-export { Genres };

@@ -58,7 +58,6 @@ export default function Home() {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
 
-  // ✅ Hook should be here
   const [activeGenres, setActiveGenres] = useState<string[]>([]);
 
   const toggleGenre = (genre: string) => {
@@ -89,6 +88,7 @@ export default function Home() {
   };
 
   const [isBlack, setIsBlack] = useState(false);
+
   return (
     <div>
       <div className="flex justify-around items-center p-[16px]">
@@ -118,7 +118,7 @@ export default function Home() {
                       </p>
                     </div>
                     <div className="border-[1px] flex-row flex"></div>
-                    <div className="flex gap-[16px] mt-[10px] h-auto pl-[20px] pr-[20px] pb-[20px] justify-center flex-wrap">
+                    <div className="flex gap-[16px] mt-[10px] h-auto pl-[20px] pr-[20px] pb-[20px]  flex-wrap">
                       {Genres.map((el, index) => (
                         <Badge
                           key={index}
