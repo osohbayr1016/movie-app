@@ -26,36 +26,38 @@ export const Hero = () => {
 
   useEffect(() => {
     const nowPlaying = async () => {
-      const response = await getHeroApi()
+      const response = await getHeroApi();
       const firstFive = response?.results.splice(0, 5);
-      console.log(response?.results.data, "Response ")
+      console.log(response?.results.data, "Response ");
       setUpcoming(firstFive);
     };
     nowPlaying();
   }, []);
 
   return (
-    <Carousel
-      opts={{ loop: true }}
-      plugins={[Autoplay({ delay: 2000 })]}
-      className="relative mt-[20px] lg:mt-[15px] w-screen overflow-hidden"
-    >
-      <CarouselContent>
-        {upcoming.map((el, index) => (
-          <CarouselItem key={index}>
-            <div className="relative overflow-hidden h-[365px] lg:h-[600px] ">
-              <Image
-                src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
-                alt={"image"}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious className="bg-background hidden lg:flex absolute -translate-y-1/2" />
-      <CarouselNext className="bg-background hidden lg:flex absolute -transalte-y-1/2" />
-    </Carousel>
+    <div className="w-full justify-center flex ">
+      <Carousel
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: 2000 })]}
+        className="relative mt-[20px] lg:mt-[15px] w-screen overflow-hidden"
+      >
+        <CarouselContent>
+          {upcoming.map((el, index) => (
+            <CarouselItem key={index}>
+              <div className="relative overflow-hidden h-[365px] lg:h-[600px] ">
+                <Image
+                  src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
+                  alt={"image"}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="bg-background hidden lg:flex absolute -translate-y-1/2" />
+        <CarouselNext className="bg-background hidden lg:flex absolute -transalte-y-1/2" />
+      </Carousel>
+    </div>
   );
 };

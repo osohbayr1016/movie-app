@@ -1,24 +1,13 @@
 "use client";
 import { GetSimilarApi } from "@/hooks/GetSimilarApi";
-import { Badge, ChevronRight, Film, Mail, Phone, Search } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
-import { DesktopInput } from "@/app/_components/DesktopInput";
-import { PhoneInput } from "@/app/_components/PhoneInput";
-import { Header } from "@/app/_components/header";
-import { Hero } from "@/app/_components/Hero";
 import { useState, useEffect } from "react";
 import { MovieSection } from "@/app/_components/MovieSection";
-import { GenreList, Genres } from "./Genre";
-// import { useRouter } from "next/navigation";
+import { getMovieDetail } from "@/hooks/GetMovieDetail";
+import Image from "next/image";
+import { Star } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { GetCreditApi } from "@/hooks/GetCreditApi";
+
 interface PageProps {
   params: {
     id: string;
@@ -32,149 +21,214 @@ interface Movie {
   vote_average: number;
 }
 
-export const DetailPage = ({ id }: { id: string }) => {
-  const [activeGenres, setActiveGenres] = useState<string[]>([]);
+interface Credits {
+  cast: { name: string; character?: string }[];
+  crew: { name: string; job: string; department: string }[];
+}
 
-  const toggleGenre = (genre: string) => {
-    setActiveGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
-    );
+interface Movie {
+  movie: {
+    title: string;
+    poster_path: string;
+    backdrop_path: string;
+    overview: string;
+    genres: { id: number; name: string }[];
+    release_date: string;
+    runtime: number;
+    vote_average: number;
+    vote_count: number;
   };
+  trailerKey: string;
+  similar: {
+    id: number;
+    title: string;
+    poster_path: string;
+    vote_average: number;
+    vote_count: number;
+  }[];
+}
+
+export const DetailPage = ({ id }: { id: string }) => {
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   const [moreLikeThis, setMoreLikeThis] = useState([]);
+
+  const [movieCredits, setMovieCredits] = useState<Credits | null>(null);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
       const response = await GetSimilarApi(id);
       setMoreLikeThis(response?.results.slice(0, 5));
     };
+
+    const fetchMovie = async () => {
+      const response = await getMovieDetail(id);
+      setMovie(response);
+    };
+
+    const credits = async () => {
+      const response = await GetCreditApi(id);
+      setMovieCredits(response);
+    };
+
+    credits();
+    fetchMovie();
     fetchAllMovies();
   }, []);
 
   return (
-    <div>
-      <div className="flex justify-around items-center p-[16px]">
-        <div className="flex h-[20px] w-[90px] gap-[8px] cursor-pointer items-center">
-          <Film className="text-[#4338ca] h-[17px] w-[17px]" />
-          <p className="weight-[700] font-bold italic text-[16px] text-[#4338CA] w-[90px]">
-            Movie Z
-          </p>
-        </div>
-
-        {/* Navigation section */}
-        <div className="w-[488px] h-[36px] gap-[12px] flex">
-          <div className="hidden sm:flex">
-            <NavigationMenu className="">
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="border-1 pl-[16px] pr-[16px] pt-[8px] pb-[8px]">
-                    <p> Genre</p>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="w-[577px] h-[333px] flex p-[20px] flex-col">
-                    <div className="flex flex-col gap-1">
-                      <h1 className="w-[577px] font-bold weight-[600] text-[24px]">
-                        Genres
-                      </h1>
-                      <p className="text-[16px] weight-[400] mb-[8px]">
-                        See lists of movies by genre
-                      </p>
-                    </div>
-                    <div className="border-[1px] flex-row flex"></div>
-                    <div className="flex gap-[16px] mt-[10px] h-auto pl-[20px] pr-[20px] pb-[20px] justify-center flex-wrap">
-                      {Genres.map((el, index) => (
-                        <Badge
-                          key={index}
-                          className={`h-[20px] p-[10px] font-bold cursor-pointer transition-colors duration-100 border-1 border-grey-300  ${
-                            activeGenres.includes(el.name)
-                              ? "bg-black text-white "
-                              : "bg-white text-black "
-                          } `}
-                          onClick={() => toggleGenre(el.name)}
-                        >
-                          {el.name}
-                          <ChevronRight className="inline-block ml-1" />
-                        </Badge>
-                      ))}
-                    </div>
-                    <div className="flex gap-[16px] mt-[10px] h-[20px] pl-[20px] pr-[20px] pb-[20px] -pt  ustify-center flex-wrap"></div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+    <div className="mx-[117px]">
+      <div className="pb-[24px] flex justify-between">
+        <div>
+          {movie?.title}
+          <div className="flex gap-1">
+            {movie?.release_date}
+            <p>•</p>
+            <p>PG</p>
+            <p>•</p>
+            {movie?.runtime}
           </div>
-
-          <div className="w-[100%] items-center gap-[10px] border-1 rounded-lg pl-[12px] pr-[12px] h-[36px] hidden sm:flex">
-            <Search className="h-[16px] w-[16px] opacity-[50%]" />
-            <DesktopInput />
-          </div>
-          <div className=" w-full h-[36px] mr-[12px] flex sm:hidden "></div>
         </div>
-        <div className="gap-[12px] flex">
-          <PhoneInput />
-          <Header />
+        <div>
+          <p>Rating</p>
+          <div className="flex items-center gap-1">
+            <Star width={30} height={30} className="text-yellow-300" />
+            <div className="flex flex-col">
+              <div>{`${movie?.vote_average}/10`}</div>
+              <div>{movie?.vote_count}</div>
+            </div>
+          </div>
         </div>
       </div>
-      {/* Header Section */}
+      <div className="flex justify-between">
+        <Image
+          className="w-[23%] h-[428px]"
+          height={428}
+          width={290}
+          alt="image"
+          src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+        />
+        <Image
+          className="w-[70%] h-[428px]"
+          src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+          height={428}
+          width={760}
+          alt="image"
+        />
+      </div>
       <div>
-        
+        {movie?.genres.map((el, index) => {
+          return (
+            <Badge
+              className=" bg-white text-black border-1 border-grey"
+              key={index}
+            >
+              {el.name}
+            </Badge>
+          );
+        })}
       </div>
+      <div>{movie?.overview}</div>
+
+      {Array.isArray(movieCredits?.cast) && movieCredits.cast.length > 0 && (
+        <div className="mt-4">
+          <h2 className="text-xl font-bold mb-2">Cast</h2>
+          <ul className="list-disc list-inside">
+            {movieCredits.cast.slice(0, 5).map((actor, index) => (
+              <li key={index}>{actor.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {Array.isArray(movieCredits?.crew) && movieCredits.crew.length > 0 && (
+        <div className="mt-4">
+          <h2 className="text-xl font-bold mb-2">Crew</h2>
+          <ul className="list-disc list-inside">
+            {movieCredits.crew.slice(0, 5).map((member, index) => (
+              <li key={index}>
+                {member.name} - {member.job} ({member.department})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div>
         <MovieSection title="More like this" movies={moreLikeThis} />
       </div>
-      {/* Footer section */}
-      <div className="bg-[#4338CA] h-[280px] text-[#fafafa] py-[40px] flex  justify-between mt-[100px] w-full flex-col sm:flex-row">
-        <div className="flex-col flex gap-[12px] w-full">
-          <div className="flex gap-[8px] w-full">
-            <Film />
-            Movie Z
-          </div>
-          <div>
-            <p>© 2024 Movie Z. All Rights Reserved.</p>
-          </div>
-        </div>
-        {/* <div className="flex-row gap-[96px] sm:flex-col"> */}
-        <div className="flex flex-col gap-[12px] w-full">
-          <div className="">
-            <div>
-              <p>Contact Information</p>
-            </div>
-            <div className="flex items-center gap-[12px] pb-[24px] pt-[12px] w-full">
-              <div className="">
-                <div>
-                  <Mail />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <p>Email:</p>
-                  <p>Support@MovieZ.com</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-[12px] w-full">
-              <div>
-                <Phone />
-              </div>
-              <div>
-                <p>Phone:</p>
-                <p>+976 (11) 123-4567</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col gap-[12px]">
-          <div>
-            <p>Follow us</p>
-          </div>
-          <div className="gap-[12px] flex w-full flex-col sm:flex-row">
-            <button>Facebook</button>
-            <button>Instagram</button>
-            <button>Twitter</button>
-            <button>Youtube</button>
-          </div>
-        </div>
-        {/* </div> */}
-      </div>
     </div>
   );
+};
+
+const a = {
+  adult: false,
+  backdrop_path: "/cJvUJEEQ86LSjl4gFLkYpdCJC96.jpg",
+  belongs_to_collection: null,
+  budget: 20000000,
+  genres: [
+    {
+      id: 10752,
+      name: "War",
+    },
+    {
+      id: 28,
+      name: "Action",
+    },
+  ],
+  homepage: "https://a24films.com/films/warfare",
+  id: 1241436,
+  imdb_id: "tt31434639",
+  origin_country: ["US"],
+  original_language: "en",
+  original_title: "Warfare",
+  overview:
+    "A platoon of Navy SEALs embarks on a dangerous mission in Ramadi, Iraq, with the chaos and brotherhood of war retold through their memories of the event.",
+  popularity: 340.5692,
+  poster_path: "/srj9rYrjefyWqkLc6l2xjTGeBGO.jpg",
+  production_companies: [
+    {
+      id: 284,
+      logo_path: "/6a26if3IKy7mlrQuGHHVp6ufQtF.png",
+      name: "DNA Films",
+      origin_country: "GB",
+    },
+    {
+      id: 41077,
+      logo_path: "/1ZXsGaFPgrgS6ZZGS37AqD5uU12.png",
+      name: "A24",
+      origin_country: "US",
+    },
+  ],
+  production_countries: [
+    {
+      iso_3166_1: "GB",
+      name: "United Kingdom",
+    },
+    {
+      iso_3166_1: "US",
+      name: "United States of America",
+    },
+  ],
+  release_date: "2025-04-09",
+  revenue: 31896828,
+  runtime: 95,
+  spoken_languages: [
+    {
+      english_name: "English",
+      iso_639_1: "en",
+      name: "English",
+    },
+    {
+      english_name: "Turkish",
+      iso_639_1: "tr",
+      name: "Türkçe",
+    },
+  ],
+  status: "Released",
+  tagline: "Everything is based on memory.",
+  title: "Warfare",
+  video: false,
+  vote_average: 7.2,
+  vote_count: 374,
 };

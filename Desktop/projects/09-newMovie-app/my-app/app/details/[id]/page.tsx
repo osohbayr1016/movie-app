@@ -10,7 +10,7 @@ const Detail = ({ params }: PageProps) => {
   const {id} = params
   return (
     <div>
-      <DetailPage id={id} />
+      <DetailPage id={id}  />
     </div>
   );
 };

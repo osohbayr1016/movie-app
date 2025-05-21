@@ -32,7 +32,7 @@ export const Movies = ({ sectionMovies }: MoviesProps) => {
             }`}
           >
             <div>
-              <div className="relative w-full h-[234px]">
+              <div className="relative w-full h-[330px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el?.poster_path}`}
                   alt={"image"}
@@ -41,7 +41,7 @@ export const Movies = ({ sectionMovies }: MoviesProps) => {
                 />
               </div>
             </div>
-            <div className="flex bottom-[1px] gap-1 p-2 text-sm h-[155px] items-end">
+            <div className="flex  gap-1 p-2 text-sm  items-center">
               <Star className="w-4 h-4 text-yellow-400" />
               <p>{el?.vote_average?.toFixed(1)}/10</p>
             </div>

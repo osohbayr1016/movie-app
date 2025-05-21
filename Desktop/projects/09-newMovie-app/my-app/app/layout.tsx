@@ -1,10 +1,10 @@
-
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Header } from "@/app/_components/header";
+import { HeaderSection } from "./_components/HeaderSection";
+import { FooterSection } from "./_components/FooterSection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      ><HeaderSection />
         <NextThemesProvider
           attribute="class"
           defaultTheme="system"
@@ -39,6 +39,7 @@ export default function RootLayout({
         >
           {children}
         </NextThemesProvider>
+        <FooterSection />
       </body>
     </html>
   );
