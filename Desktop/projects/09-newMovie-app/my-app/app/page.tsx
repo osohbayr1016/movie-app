@@ -31,9 +31,9 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <MovieSection title="Upcoming" movies={upcomingMovies} />
-      <MovieSection title="Popular" movies={popularMovies} />
-      <MovieSection title="Top Rated" movies={topRatedMovies} />
+      <MovieSection title="Upcoming" movies={upcomingMovies} seeMore={"/seeMore/Upcoming"}/>
+      <MovieSection title="Popular" movies={popularMovies} seeMore={"/seeMore/Popular"}/>
+      <MovieSection title="Top Rated" movies={topRatedMovies} seeMore={"/seeMore/TopRated"} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const GetCreditApi = async (id: string) => {
   const result = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
     {
       headers: {
         "Content-Type": "application/json",
