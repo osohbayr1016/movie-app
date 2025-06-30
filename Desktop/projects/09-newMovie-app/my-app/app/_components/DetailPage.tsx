@@ -173,7 +173,7 @@ export const DetailPage = ({ id }: { id: string }) => {
             return (
               <div className="">
                 <div key={index} className="">
-                  {el.name}
+                  {el.name}s
                 </div>
               </div>
             );

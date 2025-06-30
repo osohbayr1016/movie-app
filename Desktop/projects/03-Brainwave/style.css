@@ -1,0 +1,189 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 25px;
+}
+
+.middle {
+    display: flex;
+    gap: 29px;
+}
+
+.section2 {
+    background-image: url("./images/Hero.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 918px;
+    width: 100vw
+}
+
+.tables {
+    /* background-color: green; */
+    display: flex;
+    justify-content: center;
+    margin-top: -180px;
+}
+
+.furnitures {
+    /* background-color: aqua; */
+    display: flex;
+    height: 406px;
+    width: 1110px;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.living-room {
+    /* background-color: blue; */
+    height: 406px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #f4f7fa;
+}
+
+.card-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dining-room {
+    /* background-color: green; */
+    height: 406px;
+    width: 305px;
+    height: 406px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #f4f7fa;
+}
+
+.bedroom {
+    /* background-color: purple; */
+    height: 406px;
+    width: 305px;
+    height: 406px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #f4f7fa;
+}
+
+.card-title {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tables2 {
+    /* background-color: green; */
+    display: flex;
+    justify-content: center;
+    margin-top: 27px;
+}
+
+.heading {
+    /* background-color: aqua; */
+    justify-content: center;
+    display: flex;
+    margin-top: 159px;
+    font-size: 32px;
+    margin-bottom: 58px;
+}
+
+.shopping-items {
+    display: flex;
+    /* background-color: aqua; */
+    justify-content: center;
+    gap: 30px;
+
+}
+
+.table1 {
+    /* background-color: green; */
+    height: 300px;
+    width: 255px;
+    background-color: #f4f7fa;
+    border-radius: 10px;
+}
+
+.table2 {
+    /* background-color: purple; */
+    height: 300px;
+    width: 255px;
+    background-color: #f4f7fa;
+    border-radius: 10px;
+}
+
+.table3 { 
+    /* background-color:  blue; */
+    height: 300px;
+    width: 255px;
+    background-color: #f4f7fa;
+    border-radius: 10px;
+}
+
+.table4 {
+    /* background-color: black; */
+    height: 300px;
+    width: 255px;
+    background-color: #f4f7fa;
+    border-radius: 10px;
+}
+
+.item1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.item2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.item3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.item4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.pn1 {
+    justify-content: center;
+    display: flex;
+    color: #161c2d;
+    font-weight: bold;
+    font-size: 21px;
+}
